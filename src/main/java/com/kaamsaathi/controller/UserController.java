@@ -27,4 +27,10 @@ public class UserController {
     public User getUser(@PathVariable String phone) {
         return userService.getByPhone(phone);
     }
+
+    @PutMapping("/profile")
+    public User updateProfile(@RequestBody UserRequestDto request) {
+        return userService.updateProfile(request);
+    }
+
 }
