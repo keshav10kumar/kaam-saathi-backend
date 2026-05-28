@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
         user.setRole(request.getRole());
         user.setName(request.getName());
         user.setCity(request.getCity());
+        user.setSkills(request.getSkills());
         return userRepository.save(user);
     }
 

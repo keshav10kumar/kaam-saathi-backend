@@ -21,6 +21,7 @@ public class User {
     private String role;
     private String name;
     private String city;
+    private String skills;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

@@ -12,4 +12,5 @@ public class UserRequestDto {
     private String role;
     private String name;
     private String city;
+    private String skills;
 }
