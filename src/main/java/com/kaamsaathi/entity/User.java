@@ -22,6 +22,9 @@ public class User {
     private String name;
     private String city;
     private String skills;
+    private Integer age;
+    private Integer experience; // in year
+
 
     @CreationTimestamp
     private LocalDateTime createdAt;

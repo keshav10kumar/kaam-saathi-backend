@@ -13,4 +13,6 @@ public class UserRequestDto {
     private String name;
     private String city;
     private String skills;
+    private Integer age;
+    private Integer experience;
 }

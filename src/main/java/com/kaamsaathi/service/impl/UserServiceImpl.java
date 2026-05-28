@@ -39,6 +39,8 @@ public class UserServiceImpl implements UserService {
         user.setCity(request.getCity());
         user.setSkills(request.getSkills());
         user.setRole(request.getRole()); // optional
+        user.setAge(request.getAge());
+        user.setExperience(request.getExperience());
 
         return userRepository.save(user);
     }
