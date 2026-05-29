@@ -7,6 +7,8 @@ import com.kaamsaathi.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class JobServiceImpl implements JobService {
 
@@ -26,4 +28,17 @@ public class JobServiceImpl implements JobService {
 
         return jobRepository.save(job);
     }
+
+
+    // ✅ NEW (Day 5)
+    @Override
+    public List<Job> getAllJobs(String city) {
+
+        if (city != null && !city.isBlank()) {
+            return jobRepository.findByCityIgnoreCaseOrderByCreatedAtDesc(city);
+        }
+
+        return jobRepository.findAllByOrderByCreatedAtDesc();
+    }
+
 }

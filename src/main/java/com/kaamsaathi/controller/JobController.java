@@ -6,6 +6,8 @@ import com.kaamsaathi.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/jobs")
 public class JobController {
@@ -13,8 +15,15 @@ public class JobController {
     @Autowired
     private JobService jobService;
 
+    // ✅ EXISTING (unchanged)
     @PostMapping
     public Job createJob(@RequestBody JobRequestDto dto) {
         return jobService.createJob(dto);
+    }
+
+    // ✅ NEW (Day 5)
+    @GetMapping
+    public List<Job> getJobs(@RequestParam(required = false) String city) {
+        return jobService.getAllJobs(city);
     }
 }

@@ -18,7 +18,13 @@ public class Job {
     private String phone;
     private Long createdBy;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt; // ✅ no initialization here
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
+
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
