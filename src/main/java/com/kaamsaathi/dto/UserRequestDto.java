@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class UserRequestDto {
 
-    @NotBlank
+    @NotBlank(message = "Phone is required")
     private String phone;
 
     private String role;

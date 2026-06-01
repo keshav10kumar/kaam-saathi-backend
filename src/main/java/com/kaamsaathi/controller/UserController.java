@@ -5,6 +5,7 @@ import com.kaamsaathi.entity.User;
 import com.kaamsaathi.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class UserController {
 
     @PostMapping
     @Operation(summary = "Create user")
-    public User createUser(@RequestBody UserRequestDto request) {
+    public User createUser(@Valid @RequestBody UserRequestDto request) {
         return userService.createUser(request);
     }
 
@@ -29,7 +30,7 @@ public class UserController {
     }
 
     @PutMapping("/profile")
-    public User updateProfile(@RequestBody UserRequestDto request) {
+    public User updateProfile(@Valid @RequestBody UserRequestDto request) {
         return userService.updateProfile(request);
     }
 

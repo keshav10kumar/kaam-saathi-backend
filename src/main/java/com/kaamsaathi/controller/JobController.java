@@ -3,6 +3,7 @@ package com.kaamsaathi.controller;
 import com.kaamsaathi.dto.JobRequestDto;
 import com.kaamsaathi.entity.Job;
 import com.kaamsaathi.service.JobService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class JobController {
 
     // ✅ EXISTING (unchanged)
     @PostMapping
-    public Job createJob(@RequestBody JobRequestDto dto) {
+    public Job createJob(@Valid @RequestBody JobRequestDto dto) {
         return jobService.createJob(dto);
     }
 

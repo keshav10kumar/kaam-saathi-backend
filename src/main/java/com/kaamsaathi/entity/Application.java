@@ -7,20 +7,18 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "jobs")
+@Table(name = "applications")
 @Data
-public class Job {
+public class Application {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-    private String description;
-    private String city;
-    private String salary;
-    private String phone;
-    private Long createdBy;
+    private Long userId;
+    private Long jobId;
+
+    private String status; // APPLIED
 
     @CreationTimestamp
     private LocalDateTime createdAt;
