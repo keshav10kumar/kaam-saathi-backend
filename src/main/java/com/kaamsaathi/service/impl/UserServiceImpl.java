@@ -35,13 +35,21 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByPhone(request.getPhone())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        user.setName(request.getName());
-        user.setCity(request.getCity());
-        user.setSkills(request.getSkills());
-        user.setRole(request.getRole()); // optional
-        user.setAge(request.getAge());
-        user.setExperience(request.getExperience());
-
+        if (request.getName() != null) {
+            user.setName(request.getName());
+        }
+        if (request.getCity() != null) {
+            user.setCity(request.getCity());
+        }
+        if (request.getSkills() != null) {
+            user.setSkills(request.getSkills());
+        }
+        if (request.getAge() != null) {
+            user.setAge(request.getAge());
+        }
+        if (request.getExperience() != null) {
+            user.setExperience(request.getExperience());
+        }
         return userRepository.save(user);
     }
 

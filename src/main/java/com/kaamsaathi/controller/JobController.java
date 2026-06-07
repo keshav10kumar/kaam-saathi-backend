@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/jobs")
+@RequestMapping("api/jobs")
 //@CrossOrigin("*")
 public class JobController {
 

@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/jobs")
+@RequestMapping("/api/jobs")
 @RequiredArgsConstructor
 public class ApplicationController {
 
