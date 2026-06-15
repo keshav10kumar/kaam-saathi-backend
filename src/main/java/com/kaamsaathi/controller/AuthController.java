@@ -7,6 +7,9 @@ import com.kaamsaathi.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import com.kaamsaathi.dto.AuthResponseDto;
+import com.kaamsaathi.service.SessionService;
+
 
 @RestController
 @RequestMapping("/api/auth")
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+    private final SessionService sessionService;
 
     @PostMapping("/send-otp")
     public String sendOtp(@Valid @RequestBody OtpRequestDto request) {
@@ -23,10 +27,21 @@ public class AuthController {
     }
 
     @PostMapping("/verify-otp")
-    public User verifyOtp(@Valid @RequestBody VerifyOtpRequestDto request) {
-        return authService.verifyOtpAndLogin(
+    public AuthResponseDto verifyOtp(@Valid @RequestBody VerifyOtpRequestDto request) {
+
+        User user = authService.verifyOtpAndLogin(
                 request.getPhone(),
                 request.getOtp()
         );
+
+        String token = sessionService.createSession(user.getId());
+
+        AuthResponseDto response = new AuthResponseDto();
+        response.setToken(token);
+        response.setUserId(user.getId());
+        response.setUser(user);
+
+        return response;
     }
+
 }
