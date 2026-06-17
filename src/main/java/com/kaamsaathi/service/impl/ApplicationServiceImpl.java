@@ -1,5 +1,6 @@
 package com.kaamsaathi.service.impl;
 
+import com.kaamsaathi.dto.ApplicationResponseDto;
 import com.kaamsaathi.entity.Application;
 import com.kaamsaathi.repository.ApplicationRepository;
 import com.kaamsaathi.repository.JobRepository;
@@ -46,9 +47,36 @@ public class ApplicationServiceImpl implements ApplicationService {
         return "Applied successfully";
     }
 
+    //    @Override
+//    public List<Application> getApplicationsByJob(Long jobId) {
+//        return applicationRepository.findByJobId(jobId);
+//    }
+
     @Override
-    public List<Application> getApplicationsByJob(Long jobId) {
-        return applicationRepository.findByJobId(jobId);
+    public List<ApplicationResponseDto> getApplicationsByJob(Long jobId) {
+
+        List<Application> applications = applicationRepository.findByJobId(jobId);
+
+        List<ApplicationResponseDto> response = new java.util.ArrayList<>();
+
+        for (Application app : applications) {
+
+            userRepository.findById(app.getUserId()).ifPresent(user -> {
+
+                ApplicationResponseDto dto = new ApplicationResponseDto();
+
+                dto.setId(app.getId());
+                dto.setName(user.getName());
+                dto.setPhone(user.getPhone());
+                dto.setCity(user.getCity());
+                dto.setSkills(user.getSkills());
+                dto.setExperience(user.getExperience());
+
+                response.add(dto);
+            });
+        }
+
+        return response;
     }
 
 }

@@ -29,6 +29,13 @@ public class AuthServiceImpl implements AuthService {
         }
 
         return userRepository.findByPhone(phone)
+                .map(user -> {
+                    if (user.getRole() == null) {
+                        user.setRole("CANDIDATE");
+                        userRepository.save(user);
+                    }
+                    return user;
+                })
                 .orElseGet(() -> {
                     User user = new User();
                     user.setPhone(phone);
@@ -36,4 +43,5 @@ public class AuthServiceImpl implements AuthService {
                     return userRepository.save(user);
                 });
     }
+
 }
