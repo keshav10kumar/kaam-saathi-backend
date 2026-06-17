@@ -17,4 +17,9 @@ public class ApplicationController {
 
         return applicationService.applyForJob(userId, jobId);
     }
+
+    @GetMapping("/{jobId}/applications")
+    public Object getApplicants(@PathVariable Long jobId) {
+        return applicationService.getApplicationsByJob(jobId);
+    }
 }

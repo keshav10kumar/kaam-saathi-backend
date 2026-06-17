@@ -28,4 +28,10 @@ public class JobController {
     public List<Job> getJobs(@RequestParam(required = false) String city) {
         return jobService.getAllJobs(city);
     }
+
+    @GetMapping("/recruiter/{userId}")
+    public List<Job> getRecruiterJobs(@PathVariable Long userId) {
+        return jobService.getJobsByRecruiter(userId);
+    }
+
 }

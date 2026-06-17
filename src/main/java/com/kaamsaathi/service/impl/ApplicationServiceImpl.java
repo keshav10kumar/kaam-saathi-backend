@@ -8,6 +8,8 @@ import com.kaamsaathi.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ApplicationServiceImpl implements ApplicationService {
@@ -43,4 +45,10 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         return "Applied successfully";
     }
+
+    @Override
+    public List<Application> getApplicationsByJob(Long jobId) {
+        return applicationRepository.findByJobId(jobId);
+    }
+
 }

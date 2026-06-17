@@ -29,8 +29,6 @@ public class JobServiceImpl implements JobService {
         return jobRepository.save(job);
     }
 
-
-    // ✅ NEW (Day 5)
     @Override
     public List<Job> getAllJobs(String city) {
 
@@ -39,6 +37,11 @@ public class JobServiceImpl implements JobService {
         }
 
         return jobRepository.findAllByOrderByCreatedAtDesc();
+    }
+
+    @Override
+    public List<Job> getJobsByRecruiter(Long userId) {
+        return jobRepository.findByCreatedByOrderByCreatedAtDesc(userId);
     }
 
 }

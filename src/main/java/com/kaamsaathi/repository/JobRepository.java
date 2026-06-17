@@ -7,11 +7,8 @@ import java.util.List;
 
 public interface JobRepository extends JpaRepository<Job, Long> {
 
-
-    // ✅ NEW
     List<Job> findAllByOrderByCreatedAtDesc();
-
-    // ✅ NEW
     List<Job> findByCityIgnoreCaseOrderByCreatedAtDesc(String city);
+    List<Job> findByCreatedByOrderByCreatedAtDesc(Long createdBy);
 
 }
