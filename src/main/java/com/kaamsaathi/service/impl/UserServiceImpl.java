@@ -6,7 +6,9 @@ import com.kaamsaathi.repository.UserRepository;
 import com.kaamsaathi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -15,25 +17,54 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(UserRequestDto request) {
+
+        // ✅ MASK PHONE
+        String maskedPhone = request.getPhone()
+                .substring(request.getPhone().length() - 4);
+
+        log.info("Creating user for phone ending with {}", maskedPhone);
+
         User user = new User();
         user.setPhone(request.getPhone());
         user.setRole(request.getRole());
         user.setName(request.getName());
         user.setCity(request.getCity());
         user.setSkills(request.getSkills());
-        return userRepository.save(user);
+
+        User savedUser = userRepository.save(user);
+
+        log.info("User created successfully. userId={}", savedUser.getId());
+
+        return savedUser;
     }
 
     @Override
     public User getByPhone(String phone) {
-        return userRepository.findByPhone(phone).orElse(null);
+
+        String maskedPhone = phone.substring(phone.length() - 4);
+
+        log.debug("Fetching user by phone ending with {}", maskedPhone);
+
+        return userRepository.findByPhone(phone)
+                .orElseGet(() -> {
+                    log.warn("User not found for phone ending with {}", maskedPhone);
+                    return null;
+                });
     }
 
     @Override
     public User updateProfile(UserRequestDto request) {
 
+        String maskedPhone = request.getPhone()
+                .substring(request.getPhone().length() - 4);
+
+        log.info("Updating profile for phone ending with {}", maskedPhone);
+
         User user = userRepository.findByPhone(request.getPhone())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> {
+                    log.error("Profile update failed: User not found for phone ending with {}", maskedPhone);
+                    return new RuntimeException("User not found");
+                });
 
         if (request.getName() != null) {
             user.setName(request.getName());
@@ -50,7 +81,11 @@ public class UserServiceImpl implements UserService {
         if (request.getExperience() != null) {
             user.setExperience(request.getExperience());
         }
-        return userRepository.save(user);
-    }
 
+        User updatedUser = userRepository.save(user);
+
+        log.info("Profile updated successfully. userId={}", updatedUser.getId());
+
+        return updatedUser;
+    }
 }

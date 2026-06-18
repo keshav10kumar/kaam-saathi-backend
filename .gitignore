@@ -2,3 +2,8 @@
 # Maven build directory
 target/
 
+
+# Logs
+logs/
+*.log
+

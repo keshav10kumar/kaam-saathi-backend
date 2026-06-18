@@ -8,9 +8,11 @@ import com.kaamsaathi.repository.UserRepository;
 import com.kaamsaathi.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ApplicationServiceImpl implements ApplicationService {
@@ -22,17 +24,27 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public String applyForJob(Long userId, Long jobId) {
 
+        // ✅ ENTRY LOG
+        log.info("User {} attempting to apply for job {}", userId, jobId);
+
         // ✅ Check user exists
         userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> {
+                    log.error("Apply failed: User not found. userId={}", userId);
+                    return new RuntimeException("User not found");
+                });
 
         // ✅ Check job exists
         jobRepository.findById(jobId)
-                .orElseThrow(() -> new RuntimeException("Job not found"));
+                .orElseThrow(() -> {
+                    log.error("Apply failed: Job not found. jobId={}", jobId);
+                    return new RuntimeException("Job not found");
+                });
 
         // ✅ Prevent duplicate apply
         applicationRepository.findByUserIdAndJobId(userId, jobId)
                 .ifPresent(app -> {
+                    log.warn("Duplicate apply attempt. userId={}, jobId={}", userId, jobId);
                     throw new RuntimeException("Already applied for this job");
                 });
 
@@ -44,16 +56,17 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         applicationRepository.save(application);
 
+        // ✅ SUCCESS LOG
+        log.info("User {} successfully applied to job {}", userId, jobId);
+
         return "Applied successfully";
     }
 
-    //    @Override
-//    public List<Application> getApplicationsByJob(Long jobId) {
-//        return applicationRepository.findByJobId(jobId);
-//    }
-
     @Override
     public List<ApplicationResponseDto> getApplicationsByJob(Long jobId) {
+
+        // ✅ ENTRY LOG
+        log.debug("Fetching applications for jobId={}", jobId);
 
         List<Application> applications = applicationRepository.findByJobId(jobId);
 
@@ -76,7 +89,9 @@ public class ApplicationServiceImpl implements ApplicationService {
             });
         }
 
+        // ✅ RESULT LOG
+        log.info("Total applications fetched for jobId={} = {}", jobId, response.size());
+
         return response;
     }
-
 }
