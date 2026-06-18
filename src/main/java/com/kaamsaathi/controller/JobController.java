@@ -19,8 +19,8 @@ public class JobController {
 
     // ✅ EXISTING (unchanged)
     @PostMapping
-    public Job createJob(@Valid @RequestBody JobRequestDto dto) {
-        return jobService.createJob(dto);
+    public Job createJob(@Valid @RequestBody JobRequestDto dto, @RequestParam Long userId) {
+        return jobService.createJob(dto, userId);
     }
 
     // ✅ NEW (Day 5)

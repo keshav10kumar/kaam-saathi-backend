@@ -16,7 +16,7 @@ public class JobServiceImpl implements JobService {
     private JobRepository jobRepository;
 
     @Override
-    public Job createJob(JobRequestDto dto) {
+    public Job createJob(JobRequestDto dto, Long userId) {
 
         Job job = new Job();
         job.setTitle(dto.getTitle());
@@ -24,7 +24,9 @@ public class JobServiceImpl implements JobService {
         job.setCity(dto.getCity());
         job.setSalary(dto.getSalary());
         job.setPhone(dto.getPhone());
-        job.setCreatedBy(dto.getCreatedBy());
+
+        // ✅ FIX: Always set from userId (NOT DTO)
+        job.setCreatedBy(userId);
 
         return jobRepository.save(job);
     }

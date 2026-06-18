@@ -10,5 +10,5 @@ public class JobRequestDto {
     private String city;
     private String salary;
     private String phone;
-    private Long createdBy;
+    //private Long createdBy;
 }
