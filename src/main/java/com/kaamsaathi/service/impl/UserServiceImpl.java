@@ -82,6 +82,10 @@ public class UserServiceImpl implements UserService {
             user.setExperience(request.getExperience());
         }
 
+        if (request.getRole() != null) {
+            user.setRole(request.getRole());
+        }
+
         User updatedUser = userRepository.save(user);
 
         log.info("Profile updated successfully. userId={}", updatedUser.getId());
