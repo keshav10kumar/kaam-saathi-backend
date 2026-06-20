@@ -7,8 +7,20 @@ import java.util.List;
 
 public interface JobRepository extends JpaRepository<Job, Long> {
 
+    // ✅ Get all jobs (latest first)
     List<Job> findAllByOrderByCreatedAtDesc();
-    List<Job> findByCityIgnoreCaseOrderByCreatedAtDesc(String city);
+
+    // ✅ FIXED: Flexible city search (Delhi → New Delhi also works ✅)
+    List<Job> findByCityContainingIgnoreCaseOrderByCreatedAtDesc(String city);
+
+    // ✅ Recruiter jobs
     List<Job> findByCreatedByOrderByCreatedAtDesc(Long createdBy);
 
+    // ✅ Keyword search (title + description)
+    List<Job> findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrderByCreatedAtDesc(
+            String title, String description);
+
+    // ✅ City + keyword combined search
+    List<Job> findByCityContainingIgnoreCaseAndTitleContainingIgnoreCaseOrderByCreatedAtDesc(
+            String city, String title);
 }

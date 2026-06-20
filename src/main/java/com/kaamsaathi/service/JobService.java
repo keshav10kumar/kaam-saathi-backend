@@ -9,5 +9,9 @@ public interface JobService {
     Job createJob(JobRequestDto dto, Long userId);
     List<Job> getAllJobs(String city);
     List<Job> getJobsByRecruiter(Long userId);
+    Job updateJob(Long jobId, JobRequestDto dto, Long userId);
+    void deleteJob(Long jobId, Long userId);
+    List<Job> searchJobs(String city, String keyword);
+
 
 }

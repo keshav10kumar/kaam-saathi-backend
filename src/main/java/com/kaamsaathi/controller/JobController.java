@@ -46,4 +46,36 @@ public class JobController {
         return jobService.getJobsByRecruiter(userId);
     }
 
+    @PutMapping("/{jobId}")
+    public Job updateJob(@PathVariable Long jobId,
+                         @RequestBody JobRequestDto dto,
+                         @RequestParam Long userId) {
+
+        log.info("API: Update job request. jobId={}, userId={}", jobId, userId);
+
+        return jobService.updateJob(jobId, dto, userId);
+    }
+
+    @DeleteMapping("/{jobId}")
+    public String deleteJob(@PathVariable Long jobId,
+                            @RequestParam Long userId) {
+
+        log.info("API: Delete job request. jobId={}, userId={}", jobId, userId);
+
+        jobService.deleteJob(jobId, userId);
+
+        return "Job deleted successfully";
+    }
+
+    @GetMapping("/search")
+    public List<Job> searchJobs(@RequestParam(required = false) String city,
+                                @RequestParam(required = false) String keyword) {
+
+        log.info("API: Search jobs. city={}, keyword={}",
+                city != null ? city : "NULL",
+                keyword != null ? keyword : "NULL");
+
+        return jobService.searchJobs(city, keyword);
+    }
+
 }

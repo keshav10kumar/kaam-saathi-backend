@@ -15,6 +15,9 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Transient
+    private Long applicantCount = 0L;
+
     private String title;
     private String description;
     private String city;
