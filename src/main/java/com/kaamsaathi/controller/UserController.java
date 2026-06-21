@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+
 //@CrossOrigin(origins = "http://localhost:5173")
 @Slf4j
 @RestController
@@ -55,6 +57,14 @@ public class UserController {
         log.info("Updating profile for phone ending with: {}", maskedPhone);
 
         return userService.updateProfile(request);
+    }
+
+    @GetMapping("/search")
+    public List<User> searchCandidates(
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) String skill) {
+
+        return userService.searchCandidates(city, skill);
     }
 
 }

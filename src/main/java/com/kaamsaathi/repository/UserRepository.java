@@ -3,8 +3,16 @@ package com.kaamsaathi.repository;
 import com.kaamsaathi.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByPhone(String phone);
+    List<User> findByRole(String role);
+    List<User> findByRoleAndCityContainingIgnoreCaseAndSkillsContainingIgnoreCase(
+            String role,
+            String city,
+            String skills
+    );
+
 }

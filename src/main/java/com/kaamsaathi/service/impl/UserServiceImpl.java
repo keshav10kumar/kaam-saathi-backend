@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -92,4 +94,24 @@ public class UserServiceImpl implements UserService {
 
         return updatedUser;
     }
+
+    @Override
+    public List<User> searchCandidates(String city, String skill) {
+
+        if ((city == null || city.isBlank()) &&
+                (skill == null || skill.isBlank())) {
+            return userRepository.findByRole("CANDIDATE");
+        }
+
+        city = city == null ? "" : city;
+        skill = skill == null ? "" : skill;
+
+        return userRepository
+                .findByRoleAndCityContainingIgnoreCaseAndSkillsContainingIgnoreCase(
+                        "CANDIDATE",
+                        city,
+                        skill
+                );
+    }
+
 }
