@@ -6,6 +6,7 @@ import com.kaamsaathi.repository.ApplicationRepository;
 import com.kaamsaathi.repository.JobRepository;
 import com.kaamsaathi.repository.UserRepository;
 import com.kaamsaathi.service.ApplicationService;
+import com.kaamsaathi.util.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
@@ -52,14 +53,14 @@ public class ApplicationServiceImpl implements ApplicationService {
         Application application = new Application();
         application.setUserId(userId);
         application.setJobId(jobId);
-        application.setStatus("APPLIED");
+        application.setStatus(Constants.Common.APPLIED);
 
         applicationRepository.save(application);
 
         // ✅ SUCCESS LOG
         log.info("User {} successfully applied to job {}", userId, jobId);
 
-        return "Applied successfully";
+        return Constants.Messages.APPLIED_SUCCESSFULLY;
     }
 
     @Override

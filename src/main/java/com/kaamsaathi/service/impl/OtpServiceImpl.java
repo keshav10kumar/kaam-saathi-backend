@@ -1,6 +1,7 @@
 package com.kaamsaathi.service.impl;
 
 import com.kaamsaathi.service.OtpService;
+import com.kaamsaathi.util.Constants;
 import com.kaamsaathi.util.OtpStorage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class OtpServiceImpl implements OtpService {
     @Override
     public void sendOtp(String phone) {
 
-        String otp = "1234"; // temporary
+        String otp = Constants.Common.OTP;
 
         otpStorage.saveOtp(phone, otp);
 

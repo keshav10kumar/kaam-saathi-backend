@@ -4,6 +4,7 @@ import com.kaamsaathi.dto.UserRequestDto;
 import com.kaamsaathi.entity.User;
 import com.kaamsaathi.repository.UserRepository;
 import com.kaamsaathi.service.UserService;
+import com.kaamsaathi.util.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
@@ -100,7 +101,7 @@ public class UserServiceImpl implements UserService {
 
         if ((city == null || city.isBlank()) &&
                 (skill == null || skill.isBlank())) {
-            return userRepository.findByRole("CANDIDATE");
+            return userRepository.findByRole(Constants.Roles.CANDIDATE);
         }
 
         city = city == null ? "" : city;
@@ -108,7 +109,7 @@ public class UserServiceImpl implements UserService {
 
         return userRepository
                 .findByRoleAndCityContainingIgnoreCaseAndSkillsContainingIgnoreCase(
-                        "CANDIDATE",
+                        Constants.Roles.CANDIDATE,
                         city,
                         skill
                 );

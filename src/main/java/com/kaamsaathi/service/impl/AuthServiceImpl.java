@@ -4,6 +4,7 @@ import com.kaamsaathi.entity.User;
 import com.kaamsaathi.repository.UserRepository;
 import com.kaamsaathi.service.AuthService;
 import com.kaamsaathi.service.OtpService;
+import com.kaamsaathi.util.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
 
         if (!isValid) {
             log.warn("OTP verification failed for phone ending with {}", maskedPhone);
-            throw new RuntimeException("Invalid OTP");
+            throw new RuntimeException(Constants.Messages.INVALID_OTP);
         }
 
         log.info("OTP verified successfully for phone ending with {}", maskedPhone);
@@ -51,7 +52,7 @@ public class AuthServiceImpl implements AuthService {
                     log.debug("User found in DB. userId={}", user.getId());
 
                     if (user.getRole() == null) {
-                        user.setRole("CANDIDATE");
+                        user.setRole(Constants.Roles.CANDIDATE);
                         userRepository.save(user);
 
                         log.info("Default role assigned to userId={}", user.getId());
@@ -66,7 +67,7 @@ public class AuthServiceImpl implements AuthService {
 
                     User user = new User();
                     user.setPhone(phone);
-                    user.setRole("CANDIDATE");
+                    user.setRole(Constants.Roles.CANDIDATE);
 
                     User savedUser = userRepository.save(user);
 

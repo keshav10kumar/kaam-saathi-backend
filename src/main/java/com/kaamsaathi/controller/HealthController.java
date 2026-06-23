@@ -1,5 +1,6 @@
 package com.kaamsaathi.controller;
 
+import com.kaamsaathi.util.Constants;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,6 @@ public class HealthController {
         // ✅ VERY LIGHT LOG (optional but useful)
         log.debug("Health check endpoint called");
 
-        return "KaamSaathi Backend Running ✅";
+        return Constants.Messages.KAAMSAATHI_BACKEND_RUNNING;
     }
 }

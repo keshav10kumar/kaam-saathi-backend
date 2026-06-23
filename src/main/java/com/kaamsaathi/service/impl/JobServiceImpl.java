@@ -61,20 +61,6 @@ public class JobServiceImpl implements JobService {
         return jobRepository.findAllByOrderByCreatedAtDesc();
     }
 
-//    @Override
-//    public List<Job> getJobsByRecruiter(Long userId) {
-//
-//        // ✅ ENTRY LOG
-//        log.debug("Service: Fetching jobs for recruiter userId={}", userId);
-//
-//        List<Job> jobs = jobRepository.findByCreatedByOrderByCreatedAtDesc(userId);
-//
-//        // ✅ RESULT LOG (very useful)
-//        log.info("Total jobs fetched for userId={} = {}", userId, jobs.size());
-//
-//        return jobs;
-//    }
-
     @Override
     public List<Job> getJobsByRecruiter(Long userId) {
 

@@ -4,6 +4,7 @@ import com.kaamsaathi.dto.OtpRequestDto;
 import com.kaamsaathi.dto.VerifyOtpRequestDto;
 import com.kaamsaathi.entity.User;
 import com.kaamsaathi.service.AuthService;
+import com.kaamsaathi.util.Constants;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,8 @@ public class AuthController {
 
         authService.sendOtp(request.getPhone());
 
-        return "OTP sent successfully";
+        //return "OTP sent successfully";
+        return Constants.Messages.OTP_SENT;
     }
 
     @PostMapping("/verify-otp")

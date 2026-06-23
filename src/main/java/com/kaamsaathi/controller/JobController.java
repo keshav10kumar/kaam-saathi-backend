@@ -3,6 +3,7 @@ package com.kaamsaathi.controller;
 import com.kaamsaathi.dto.JobRequestDto;
 import com.kaamsaathi.entity.Job;
 import com.kaamsaathi.service.JobService;
+import com.kaamsaathi.util.Constants;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -64,7 +65,7 @@ public class JobController {
 
         jobService.deleteJob(jobId, userId);
 
-        return "Job deleted successfully";
+        return Constants.Messages.JOB_DELETED_SUCCESSFULLY;
     }
 
     @GetMapping("/search")
