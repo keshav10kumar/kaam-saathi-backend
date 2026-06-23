@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
         user.setName(request.getName());
         user.setCity(request.getCity());
         user.setSkills(request.getSkills());
+        user.setGender(request.getGender());
 
         User savedUser = userRepository.save(user);
 
@@ -84,9 +85,11 @@ public class UserServiceImpl implements UserService {
         if (request.getExperience() != null) {
             user.setExperience(request.getExperience());
         }
-
         if (request.getRole() != null) {
             user.setRole(request.getRole());
+        }
+        if (request.getGender() != null) {
+            user.setGender(request.getGender());
         }
 
         User updatedUser = userRepository.save(user);

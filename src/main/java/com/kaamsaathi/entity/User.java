@@ -25,6 +25,8 @@ public class User {
     private Integer age;
     private Integer experience; // in year
 
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

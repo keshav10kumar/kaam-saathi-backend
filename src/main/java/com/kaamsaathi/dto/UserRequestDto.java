@@ -1,5 +1,6 @@
 package com.kaamsaathi.dto;
 
+import com.kaamsaathi.entity.Gender;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -15,4 +16,5 @@ public class UserRequestDto {
     private String skills;
     private Integer age;
     private Integer experience;
+    private Gender gender;
 }
