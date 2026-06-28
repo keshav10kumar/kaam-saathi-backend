@@ -12,7 +12,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("api/jobs")
+@RequestMapping("/api/jobs")
 //@CrossOrigin("*")
 public class JobController {
 
