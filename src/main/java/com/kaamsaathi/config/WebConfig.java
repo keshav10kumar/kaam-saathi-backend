@@ -10,11 +10,13 @@ import org.springframework.web.servlet.config.annotation.*;
 public class WebConfig implements WebMvcConfigurer {
 
     private final SessionService sessionService;
-
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173")
+                .allowedOrigins(
+                        "http://localhost:5173",
+                        "https://kaam-saathi-frontend.vercel.app"
+                )
                 .allowedMethods("*")
                 .allowedHeaders("*");
     }
